@@ -1,5 +1,5 @@
 import express from "express"
-import cors from "cors";
+import cors from "cors"
 import fs from "fs/promises"
 import dotenv from "dotenv"
 
@@ -20,7 +20,7 @@ function PrintToLog(req, res, next){
 }
 dotenv.config()
 const app = express();
-const cors = cors();
+const corses = cors();
 connectToDb()
 app.use(PrintToLog)
 app.use(express.json())
