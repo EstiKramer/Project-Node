@@ -1,7 +1,6 @@
 import { Schema, model } from "mongoose";
 
 const productSchema = Schema({
-    id:String,
     productName:String,
     description: String,
     DateOfManufacture:{type:Date, default:new Date()},

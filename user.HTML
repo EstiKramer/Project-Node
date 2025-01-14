@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API User Operations</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>API User Operations</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>שיטה</th>
+                <th>כתובת</th>
+                <th>פרמטרים ב-body</th>
+                <th>מה עושה</th>
+                <th>סוגי שגיאות אפשריות</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>/api/user/</td>
+                <td>אין</td>
+                <td>מחזיר את כל המשתמשים</td>
+                <td>
+                    <ul>
+                        <li>500 - שגיאה בשרת</li>
+                        <li>400 - בעיה בביצוע הבקשה</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/api/user/:id</td>
+                <td>אין</td>
+                <td>מחפש משתמש לפי ID</td>
+                <td>
+                    <ul>
+                        <li>404 - משתמש לא נמצא</li>
+                        <li>400 - ID לא תקני</li>
+                        <li>500 - שגיאה בשרת</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/api/user/</td>
+                <td>
+                    <pre>
+{
+    "username": "שם המשתמש",
+    "email": "כתובת אימייל",
+    "password": "סיסמה",
+    "role": "תפקיד",
+    "registration": "תאריך רישום"
+}
+                    </pre>
+                </td>
+                <td>יוצר משתמש חדש במערכת</td>
+                <td>
+                    <ul>
+                        <li>404 - חסר פרמטרים (שם משתמש, אימייל או סיסמה)</li>
+                        <li>500 - שגיאה בשרת</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/api/user/login</td>
+                <td>
+                    <pre>
+{
+    "username": "שם המשתמש",
+    "password": "סיסמה"
+}
+                    </pre>
+                </td>
+                <td>מפעיל כניסה למערכת</td>
+                <td>
+                    <ul>
+                        <li>404 - שם משתמש או סיסמה שגויים</li>
+                        <li>500 - שגיאה בשרת</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td>/api/user/:id</td>
+                <td>
+                    <pre>
+{
+    "username": "שם חדש",
+    "email": "אימייל חדש",
+    "role": "תפקיד חדש",
+    "registration": "תאריך רישום חדש"
+}
+                    </pre>
+                </td>
+                <td>מעדכן את פרטי המשתמש לפי ID</td>
+                <td>
+                    <ul>
+                        <li>404 - משתמש לא נמצא</li>
+                        <li>400 - ID לא תקני</li>
+                        <li>500 - שגיאה בשרת</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td>/api/user/:id</td>
+                <td>
+                    <pre>
+{
+    "newPassword": "סיסמה חדשה"
+}
+                    </pre>
+                </td>
+                <td>מעדכן את הסיסמה של המשתמש לפי ID</td>
+                <td>
+                    <ul>
+                        <li>404 - משתמש לא נמצא</li>
+                        <li>400 - ID לא תקני</li>
+                        <li>400 - סיסמה לא תקינה</li>
+                        <li>500 - שגיאה בשרת</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td>/api/user/:id</td>
+                <td>
+                    <pre>
+{
+    "newPassword": "סיסמה חדשה"
+}
+                    </pre>
+                </td>
+                <td>עדכון סיסמה למשתמש לפי ID</td>
+                <td>
+                    <ul>
+                        <li>404 - משתמש לא נמצא</li>
+                        <li>400 - סיסמה חדשה חסרה</li>
+                        <li>500 - שגיאה בשרת</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td>/api/user/:id</td>
+                <td>אין</td>
+                <td>מוחק משתמש לפי ID</td>
+                <td>
+                    <ul>
+                        <li>404 - משתמש לא נמצא</li>
+                        <li>400 - ID לא תקני</li>
+                        <li>500 - שגיאה בשרת</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

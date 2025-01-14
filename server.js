@@ -1,10 +1,12 @@
 import express from "express"
+import cors from "cors";
+import fs from "fs/promises"
+import dotenv from "dotenv"
+
 import productRouter from "./Routers/Product.js"
 import routerUser from "./Routers/User.js"
 import routerOrder from "./Routers/Order.js"
 import  {connectToDb} from "./config/db.js"
-import dotenv from "dotenv"
-import fs from "fs/promises"
 
 
 function PrintToLog(req, res, next){
@@ -17,7 +19,8 @@ function PrintToLog(req, res, next){
     }
 }
 dotenv.config()
-const app = express()
+const app = express();
+const cors = cors();
 connectToDb()
 app.use(PrintToLog)
 app.use(express.json())

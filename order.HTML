@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Order Operations</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>API Order Operations</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>שיטה</th>
+                <th>כתובת</th>
+                <th>פרמטרים ב-body</th>
+                <th>מה עושה</th>
+                <th>סוגי שגיאות אפשריות</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>/api/order/</td>
+                <td>אין</td>
+                <td>מחזיר את כל ההזמנות</td>
+                <td>
+                    <ul>
+                        <li>500 - שגיאה בשרת</li>
+                        <li>400 - בעיה בביצוע הבקשה</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/api/order/user/:userId</td>
+                <td>אין</td>
+                <td>מחפש הזמנות לפי ID של משתמש</td>
+                <td>
+                    <ul>
+                        <li>404 - לא נמצאו הזמנות למשתמש הזה</li>
+                        <li>400 - ID לא תקני</li>
+                        <li>500 - שגיאה בשרת</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/api/order/</td>
+                <td>
+                    <pre>
+{
+    "userId": "ID של המשתמש",
+    "products": [
+        {
+            "name": "שם המוצר",
+            "price": 100,
+            "sizes": 42,
+            "imagePuth": "נתיב התמונה"
+        }
+    ],
+    "address": "כתובת למשלוח",
+    "pricesend": 10,
+    "finallprice": 110
+}
+                    </pre>
+                </td>
+                <td>יוצר הזמנה חדשה</td>
+                <td>
+                    <ul>
+                        <li>404 - חסר פרמטרים (userId, products או address)</li>
+                        <li>400 - כתובת לא תקינה</li>
+                        <li>400 - מחיר לא תקין (שליחה או סה"כ)</li>
+                        <li>404 - לא נמצא משתמש עם ID זה</li>
+                        <li>500 - שגיאה בשרת</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td>/api/order/:id</td>
+                <td>אין</td>
+                <td>מעביר הזמנה לסטטוס "נשלחה"</td>
+                <td>
+                    <ul>
+                        <li>404 - לא נמצאה הזמנה עם ה-ID הזה</li>
+                        <li>500 - שגיאה בשרת</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td>/api/order/:id</td>
+                <td>אין</td>
+                <td>מוחק הזמנה לפי ID</td>
+                <td>
+                    <ul>
+                        <li>404 - לא נמצאה הזמנה עם ה-ID הזה</li>
+                        <li>500 - שגיאה בשרת</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

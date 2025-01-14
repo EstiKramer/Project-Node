@@ -24,22 +24,13 @@ export const getAllrPoducts = async(req, res)=> {
         }
         catch(err){
             console.log(err)
-            res.status(400).json({title:"cannot gey by id",message:err.message})
+            res.status(400).json({title:"cannot get by id",message:err.message})
         }
     }
     export const update = async (req, res) => {
         let { id } = req.params;
         let body = req.body;
-    
-        const requiredFields = ["price",  "sizes", "imagePath" ];
-        const missingFields = requiredFields.filter((field) => !body[field]);
-    
-        if (missingFields.length > 0) {
-            return res.status(400).json({
-                title: "Validation Error",
-                message: `Missing required fields: ${missingFields.join(", ")}`,
-            });
-        }
+
     
         try {
             let data = await productModel.findByIdAndUpdate(id, body, { new: true });

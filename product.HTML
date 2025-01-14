@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Product Operations</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>API Product Operations</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>שיטה</th>
+                <th>כתובת</th>
+                <th>פרמטרים ב-body</th>
+                <th>מה עושה</th>
+                <th>סוגי שגיאות אפשריות</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>GET</td>
+                <td>/api/product/</td>
+                <td>אין</td>
+                <td>מחזיר את כל המוצרים</td>
+                <td>
+                    <ul>
+                        <li>500 - שגיאה בשרת</li>
+                        <li>400 - בעיה בביצוע הבקשה</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>GET</td>
+                <td>/api/product/:id</td>
+                <td>אין</td>
+                <td>מחפש מוצר לפי ID</td>
+                <td>
+                    <ul>
+                        <li>404 - מוצר לא נמצא</li>
+                        <li>400 - ID לא תקני</li>
+                        <li>500 - שגיאה בשרת</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>POST</td>
+                <td>/api/product/</td>
+                <td>
+                    <pre>
+{
+    "productName": "שם המוצר",
+    "description": "תיאור המוצר",
+    "DateOfManufacture": "תאריך ייצור",
+    "imagePath": "כתובת תמונה",
+    "price": "מחיר",
+    "sizes": [
+        { "size": 42, "stock": 10 },
+        { "size": 44, "stock": 5 }
+    ],
+    "type": ["סוג 1", "סוג 2"]
+}
+                    </pre>
+                </td>
+                <td>יוצר מוצר חדש במערכת</td>
+                <td>
+                    <ul>
+                        <li>400 - שדה חסר (כגון productName או price)</li>
+                        <li>400 - מחיר לא תקני (לא מספר חיובי)</li>
+                        <li>400 - תאריך ייצור לא תקני</li>
+                        <li>500 - שגיאה בשרת</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>PUT</td>
+                <td>/api/product/:id</td>
+                <td>
+                    <pre>
+{
+    "productName": "שם חדש",
+    "description": "תיאור חדש",
+    "DateOfManufacture": "תאריך ייצור חדש",
+    "imagePath": "כתובת תמונה חדשה",
+    "price": "מחיר חדש",
+    "sizes": [
+        { "size": 42, "stock": 10 },
+        { "size": 44, "stock": 5 }
+    ],
+    "type": ["סוג חדש"]
+}
+                    </pre>
+                </td>
+                <td>מעדכן מוצר קיים לפי ID</td>
+                <td>
+                    <ul>
+                        <li>404 - מוצר לא נמצא</li>
+                        <li>400 - ID לא תקני</li>
+                        <li>500 - שגיאה בשרת</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>DELETE</td>
+                <td>/api/product/:id</td>
+                <td>אין</td>
+                <td>מוחק מוצר לפי ID</td>
+                <td>
+                    <ul>
+                        <li>404 - מוצר לא נמצא</li>
+                        <li>400 - ID לא תקני</li>
+                        <li>500 - שגיאה בשרת</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
