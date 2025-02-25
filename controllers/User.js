@@ -93,7 +93,8 @@ export async function updateUserPassword(req, res) {
 }
 
     export async function add_signUp(req, res) {
-        if(!req.body.username || !req.body.email || !req.body.password )
+        console.log("Received data:", req.body);
+        if(!req.body.userName || !req.body.email || !req.body.password )
             return res.status(404).json({title:"missing parameters",message:"name email password are required"})
         try{
             let newuser = new userModel(req.body)
@@ -105,9 +106,9 @@ export async function updateUserPassword(req, res) {
             res.status(400).json({title:"cannot add",message:err.message})
         }
     }
-    export async function getStudentByNamePassword_Login(req, res) {
+    export async function getUserByNamePassword_Login(req, res) {
         try{
-            let data = await userModel.findOne({password:req.body.password,name:req.body.username})
+            let data = await userModel.findOne({password:req.body.password,userName:req.body.userName})
             if(!data)
                 return res.status(404).json({title:"cannot find user with such details",message:"wrong name or password"})
             res.json(data)
