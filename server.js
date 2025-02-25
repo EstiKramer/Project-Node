@@ -47,41 +47,6 @@
 // app.listen(port,'0.0.0.0', () => {
 //     console.log("app is listenning on port" + port)
 // })
-// import express from "express";
-// import cors from "cors";
-// import dotenv from "dotenv";
-// import productRouter from "./Routers/Product.js";
-// import routerUser from "./Routers/User.js";
-// import routerOrder from "./Routers/Order.js";
-// import { connectToDb } from "./config/db.js";
-
-// dotenv.config();
-// const app = express();
-
-// // ✅ הגדרת CORS נכון
-// app.use(cors({
-//     origin: "http://localhost:5174", // **וודאי שזו כתובת ה-Frontend שלך**
-//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], 
-//     allowedHeaders: ["Content-Type", "Authorization"]
-// }));
-
-// app.use(express.json());
-
-// // ✅ טיפול בבקשות OPTIONS
-// app.options("*", (req, res) => {
-//     res.header("Access-Control-Allow-Origin", "http://localhost:5174");
-//     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-//     res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-//     res.sendStatus(200);
-// });
-
-// // ✅ הגדרת מסלולים (Routes)
-// app.use("/api/product", productRouter);
-// app.use("/api/user", routerUser);
-// app.use("/api/order", routerOrder);
-
-// const port = process.env.PORT || 3000;
-// app.listen(port, () => console.log(`Server running on port ${port}`));
 
 
 import express from "express";
