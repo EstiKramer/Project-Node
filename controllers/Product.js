@@ -1,8 +1,5 @@
 import { productModel } from "../models/Product.js";
 
-
-
-
 export const getAllrPoducts = async(req, res)=> {
     let limit =req.query.limit || 5
     let page = req.query.page || 1
