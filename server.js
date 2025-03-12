@@ -95,7 +95,7 @@ app.options("*", (req, res) => {
 app.use("/api/product", productRouter);
 app.use("/api/user", routerUser);
 app.use("/api/order", routerOrder);
-app.use("./Public/images",express.static(path.join(__dirname,"images")));
+app.use("/images",express.static(path.join(__dirname,"./Public/images")));
 
 const port = process.env.PORT || 3000;
 app.listen(port, '0.0.0.0', () => {
