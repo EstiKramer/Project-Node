@@ -9,9 +9,9 @@ export const getAllrPoducts = async(req, res)=> {
     let s = req.query.s || ""
     let reg = new RegExp(s)
     try{
-        let data = await productModel.find({name:reg}.sort({name:1}).skip(((page-1)*limit)).limit(limit))
+        let data = await productModel.find({name:reg}).sort({name:1}).skip(((page-1)*limit)).limit(limit)
         let totalProdects = await productModel.countDocuments();
-        let totalPages = Math.cell(totalProdects/limit)
+        let totalPages = Math.ceil(totalProdects/limit)
         res.json({data: data,
             currentPage:page,
             totalPages: totalPages}
