@@ -62,16 +62,15 @@ import { connectToDb } from "./config/db.js";
 dotenv.config();
 const app = express();
 
-// ✅ CORS – לוודא שהרשאות מוגדרות נכון
+
 app.use(cors({
-    origin: "*", // אם צריך להרשות רק ל-Frontend מסוים, אפשר לשים כתובת ספציפית
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use(express.json());
 
-// ✅ Middleware לכתיבת לוגים
 async function PrintToLog(req, res, next) {
     try {
         await fs.appendFile("./log.txt", `${new Date().toISOString()} ${req.method} ${req.url}\n`);
@@ -84,7 +83,7 @@ async function PrintToLog(req, res, next) {
 app.use(PrintToLog);
 connectToDb();
 
-// ✅ טיפול בבקשות OPTIONS בצורה תקינה
+
 app.options("*", (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
@@ -92,12 +91,11 @@ app.options("*", (req, res) => {
     res.sendStatus(200);
 });
 
-// ✅ חיבור הנתיבים (Routes)
+
 app.use("/api/product", productRouter);
 app.use("/api/user", routerUser);
 app.use("/api/order", routerOrder);
 
-// ✅ הפעלת השרת
 const port = process.env.PORT || 3000;
 app.listen(port, '0.0.0.0', () => {
     console.log(`Server running on port ${port}`);

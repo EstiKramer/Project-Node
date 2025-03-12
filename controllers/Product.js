@@ -2,14 +2,24 @@ import { productModel } from "../models/Product.js";
 
 
 
+
 export const getAllrPoducts = async(req, res)=> {
+    let limit =req.query.limit || 5
+    let page = req.query.page || 1
+    let s = req.query.s || ""
+    let reg = new RegExp(s)
     try{
-        let data = await productModel.find();
-        res.json(data)
+        let data = await productModel.find({name:reg}.sort({name:1}).skip(((page-1)*limit)).limit(limit))
+        let totalProdects = await productModel.countDocuments();
+        let totalPages = Math.cell(totalProdects/limit)
+        res.json({data: data,
+            currentPage:page,
+            totalPages: totalPages}
+        )
     }
     catch (err){
         console.log(err)
-        res.status(400).json({title:"cannot get all",message:
+        res.status(400).json({title:"cannot get all prodects",message:
             err.message
         })
 

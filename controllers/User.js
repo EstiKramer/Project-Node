@@ -108,7 +108,7 @@ export async function updateUserPassword(req, res) {
     }
     export async function getUserByNamePassword_Login(req, res) {
         try{
-            let data = await userModel.findOne({password:req.body.password,email:req.body.email})
+            let data = await userModel.findOne({email:req.body.email, password:req.body.password})
             if(!data)
                 return res.status(404).json({title:"cannot find user with such details",message:"wrong name or password"})
             res.json(data)
