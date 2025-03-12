@@ -61,6 +61,7 @@ import { connectToDb } from "./config/db.js";
 
 dotenv.config();
 const app = express();
+const path = require("path");
 
 
 app.use(cors({
@@ -82,6 +83,7 @@ async function PrintToLog(req, res, next) {
 
 app.use(PrintToLog);
 connectToDb();
+
 
 
 app.options("*", (req, res) => {
