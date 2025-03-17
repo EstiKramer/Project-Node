@@ -95,10 +95,9 @@ export async function updateUserPassword(req, res) {
 }
 
     export async function add_signUp(req, res) {
-        
         console.log("Received data:", req.body);
         if(!req.body.userName || !req.body.email || !req.body.password )
-            return res.status(404).json({title:"missing parameters",message:"name email password are required"})
+            return res.status(400).json({title:"missing parameters",message:"name email password are required"})
         try{
             let existingUser = await userModel.findOne({ email: req.body.email });
             if (existingUser) {
@@ -106,10 +105,12 @@ export async function updateUserPassword(req, res) {
             }
             let newuser = new userModel(req.body)
             await newuser.save()
+            console.log("✅ User saved to DB:", newuser);
             const token = jwt.sign(
                 {userId: newuser._id, role:newuser.role},
                 process.env.JWT_SECRET,
                 {expiresIn: process.env.TOKEN_EXPIRES})
+                console.log("✅ Token generated:", token);
             res.json({token, data:{ id: newuser._id, email: newuser.email, role: newuser.role }})
         }
         catch(err){
