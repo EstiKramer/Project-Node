@@ -95,6 +95,7 @@ export async function updateUserPassword(req, res) {
 }
 
     export async function add_signUp(req, res) {
+        
         console.log("Received data:", req.body);
         if(!req.body.userName || !req.body.email || !req.body.password )
             return res.status(404).json({title:"missing parameters",message:"name email password are required"})
@@ -112,7 +113,7 @@ export async function updateUserPassword(req, res) {
             res.json({token, data:{ id: newuser._id, email: newuser.email, role: newuser.role }})
         }
         catch(err){
-            console.log(err)
+            console.error("Mongoose Error:", err); 
             res.status(400).json({title:"cannot add",message:err.message})
         }
     }
