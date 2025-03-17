@@ -53,7 +53,7 @@ import express from "express";
 import cors from "cors";
 import fs from "fs/promises";
 import dotenv from "dotenv";
-import JsonWebToken from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import bcrypt from 'bcryptjs'
 
 import productRouter from "./Routers/Product.js";
@@ -61,9 +61,6 @@ import routerUser from "./Routers/User.js";
 import routerOrder from "./Routers/Order.js";
 import { connectToDb } from "./config/db.js";
 import path from "path";
-
-const secretKey = process.env.JWT_SECRET;
-
 
 dotenv.config();
 const app = express();
