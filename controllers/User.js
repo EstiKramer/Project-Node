@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+
 import { userModel } from "../models/User.js";
 
 export async function getAllusers(req,res) {
@@ -111,7 +113,11 @@ export async function updateUserPassword(req, res) {
             let data = await userModel.findOne({email:req.body.email, password:req.body.password})
             if(!data)
                 return res.status(404).json({title:"cannot find user with such details",message:"wrong name or password"})
-            res.json(data)
+            const token = jwt.sighn(
+                {userId:user._id, role:userRole},
+                process.env.JWT_SECRET,
+                process.env.TOKEN_EXPIRES)
+            res.json({token, data:{ id: user._id, email: user.email, role: user.role }})
         }
         catch(err){
             console.log(err)

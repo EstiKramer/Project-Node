@@ -53,22 +53,28 @@ import express from "express";
 import cors from "cors";
 import fs from "fs/promises";
 import dotenv from "dotenv";
+import JsonWebToken from "jsonwebtoken";
+import bcrypt from 'bcryptjs'
 
 import productRouter from "./Routers/Product.js";
 import routerUser from "./Routers/User.js";
 import routerOrder from "./Routers/Order.js";
 import { connectToDb } from "./config/db.js";
+import path from "path";
+
+const secretKey = process.env.JWT_SECRET;
+
 
 dotenv.config();
 const app = express();
-const path = require("path");
 
+app.use(cors());
 
-app.use(cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"]
-}));
+// app.use(cors({
+//     origin: "*",
+//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//     allowedHeaders: ["Content-Type", "Authorization"]
+// }));
 
 app.use(express.json());
 
@@ -97,7 +103,6 @@ app.options("*", (req, res) => {
 app.use("/api/product", productRouter);
 app.use("/api/user", routerUser);
 app.use("/api/order", routerOrder);
-app.use("/images",express.static(path.join(__dirname,"./Public/images")));
 
 const port = process.env.PORT || 3000;
 app.listen(port, '0.0.0.0', () => {
