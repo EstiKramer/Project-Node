@@ -99,9 +99,17 @@ export async function updateUserPassword(req, res) {
         if(!req.body.userName || !req.body.email || !req.body.password )
             return res.status(404).json({title:"missing parameters",message:"name email password are required"})
         try{
+            let existingUser = await userModel.findOne({ email: req.body.email });
+            if (existingUser) {
+                return res.status(400).json({ title: "User already exists", message: "A user with this email already exists" });
+            }
             let newuser = new userModel(req.body)
             await newuser.save()
-            res.json(newuser)
+            const token = jwt.sign(
+                {userId: newuser._id, role:newuser.role},
+                process.env.JWT_SECRET,
+                {expiresIn: process.env.TOKEN_EXPIRES})
+            res.json({token, data:{ id: newuser._id, email: newuser.email, role: newuser.role }})
         }
         catch(err){
             console.log(err)
@@ -110,13 +118,16 @@ export async function updateUserPassword(req, res) {
     }
     export async function getUserByNamePassword_Login(req, res) {
         try{
-            let data = await userModel.findOne({email:req.body.email, password:req.body.password})
-            if(!data)
-                return res.status(404).json({title:"cannot find user with such details",message:"wrong name or password"})
-            const token = jwt.sighn(
-                {userId:user._id, role:userRole},
+            let user = await userModel.findOne({email:req.body.email})
+            if(!user)
+                return res.status(404).json({title:"cannot find user with such details",message:"wrong email"})
+            const isMatch = await bcrypt.compare(req.body.password, user.password)
+            if(!isMatch)
+                return res.status(400).json({title:"cannot find user with such details",message:"wrong password"});
+            const token = jwt.sign(
+                {userId: user._id, role:user.role},
                 process.env.JWT_SECRET,
-                process.env.TOKEN_EXPIRES)
+                {expiresIn: process.env.TOKEN_EXPIRES})
             res.json({token, data:{ id: user._id, email: user.email, role: user.role }})
         }
         catch(err){
