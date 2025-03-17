@@ -112,7 +112,7 @@ export async function updateUserPassword(req, res) {
                 {userId: newuser._id, role:newuser.role},
                 process.env.JWT_SECRET,
                 {expiresIn: process.env.TOKEN_EXPIRES})
-                console.log("✅ Token generated:", token);
+                console.log("✅ Response about to be sent:", { token, id: newuser._id, email: newuser.email, role: newuser.role });
             res.json({token, data:{ id: newuser._id, email: newuser.email, role: newuser.role }})
         }
         catch(err){
