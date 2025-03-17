@@ -15,7 +15,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors());
-console.log(`📩 Incoming Request: ${req.method} ${req.url}`);
+
 
 // app.use(cors({
 //     origin: "*",

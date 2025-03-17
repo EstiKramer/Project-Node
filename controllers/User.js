@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import { userModel } from "../models/User.js";
 
 export async function getAllusers(req,res) {
