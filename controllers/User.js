@@ -1,5 +1,7 @@
 import dotenv from "dotenv";
 import bcrypt from 'bcryptjs'
+import jwt from "jsonwebtoken";
+
 import { userModel } from "../models/User.js";
 
 export async function getAllusers(req,res) {
