@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcryptjs'
 
-import productRouter from "./Routers/Product.js";
+import productRouter from "./routers/product.js";
 import routerUser from "./Routers/User.js";
 import routerOrder from "./Routers/Order.js";
 import { connectToDb } from "./config/db.js";

@@ -107,7 +107,6 @@ export async function updateUserPassword(req, res) {
             }
             let newuser = new userModel(req.body)
             await newuser.save()
-            console.log("✅ User saved to DB:", newuser);
             const token = jwt.sign(
                 {userId: newuser._id, role:newuser.role},
                 process.env.JWT_SECRET,

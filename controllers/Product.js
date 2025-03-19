@@ -68,8 +68,6 @@ export const getAllrPoducts = async(req, res)=> {
     }
     export const add  = async(req, res) =>{
         let {body} = req
-
-
         const requiredFields = ["productName", "price", "sizes", "type", "imagePath"];
         const missingFields = requiredFields.filter((field) => !body[field]);
     

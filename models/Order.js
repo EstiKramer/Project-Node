@@ -3,13 +3,16 @@ const minimalProduct = Schema({
     name: String,
     price: Number,
     sizes: Number,
-    imagePuth:String
+    // imagePuth:String
 })
 
 const orderSchema = Schema({
     date: { type: Date, default: new Date()},
     targetDate: { type: Date, default: new Date()},
     address: String,
+    city: String,
+    zip: Number,
+    country:String,
     products: [minimalProduct],
      userId: {
         type: Types.ObjectId,
