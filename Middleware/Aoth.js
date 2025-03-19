@@ -12,4 +12,4 @@ const AouthMiddleware = (req,res,next)  => {
    
 }
  
-export default AouthMiddleware();
+export default AouthMiddleware;
