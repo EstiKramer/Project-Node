@@ -25,8 +25,8 @@ export const getorderUsertId = async (req, res) => {
 // פונקציה להוספת הזמנה
 export const addOrder = async (req, res) => {
     let { body } = req;
-    if (!body.userId || !body.products || !body.products.length)
-        return res.status(404).json({ title: "cannot add registration", message: "missing parameters" });
+    // if (!body.userId || !body.products || !body.products.length)
+    //     return res.status(404).json({ title: "cannot add registration", message: "missing parameters" });
 
     if (!body.address || body.address.trim() === "") {
         return res.status(400).json({

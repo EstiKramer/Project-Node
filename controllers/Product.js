@@ -37,8 +37,6 @@ export const getAllrPoducts = async(req, res)=> {
     export const update = async (req, res) => {
         let { id } = req.params;
         let body = req.body;
-
-    
         try {
             let data = await productModel.findByIdAndUpdate(id, body, { new: true });
             if (!data)
@@ -78,7 +76,7 @@ export const getAllrPoducts = async(req, res)=> {
             });
         }
     
-        if (typeof body.price !== "number" || body.price <= 0) {
+        if (typeof body.price != "number" || body.price <= 0) {
             return res.status(400).json({
                 title: "Validation Error",
                 message: "'price' must be a positive number",

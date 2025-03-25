@@ -97,16 +97,27 @@ export async function updateUserPassword(req, res) {
 }
 
     export async function add_signUp(req, res) {
+        
         console.log("Received data:", req.body);
-        if(!req.body.userName || !req.body.email || !req.body.password )
-            return res.status(400).json({title:"missing parameters",message:"name email password are required"})
+        if(!req.body.userName || !req.body.email || !req.body.password ){
+            console.log("❌ חסרים נתונים!");
+
+            return res.status(400).json({title:"missing parameters",message:"name email password are required"})}
         try{
+            console.log("🔍 מחפש משתמש קיים...");
+
             let existingUser = await userModel.findOne({ email: req.body.email });
             if (existingUser) {
+                console.log("❌ משתמש כבר קיים:", existingUser);
+
                 return res.status(400).json({ title: "User already exists", message: "A user with this email already exists" });
             }
+            console.log("✅ יוצר משתמש חדש...");
+
             let newuser = new userModel(req.body)
             await newuser.save()
+            console.log("🔑 יוצר טוקן...");
+
             const token = jwt.sign(
                 {userId: newuser._id, role:newuser.role},
                 process.env.JWT_SECRET,
@@ -131,7 +142,8 @@ export async function updateUserPassword(req, res) {
                 {userId: user._id, role:user.role},
                 process.env.JWT_SECRET,
                 {expiresIn: process.env.TOKEN_EXPIRES})
-            res.json({token, data:{ id: user._id, email: user.email, role: user.role }})
+            res.json({ token, user: { id: user._id, email: user.email, role: user.role } });
+
         }
         catch(err){
             console.log(err)
