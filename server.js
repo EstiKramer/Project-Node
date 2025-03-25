@@ -7,7 +7,7 @@ import bcrypt from 'bcryptjs'
 
 import routerOrder from "./Routers/Order.js";
 import routerUser from "./Routers/User.js";
-import productRouter from "./Routers/Product.js";
+import productRouter from "./Routers/Product.js"
 import { connectToDb } from "./config/db.js";
 import path from "path";
 
