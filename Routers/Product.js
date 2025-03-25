@@ -2,7 +2,7 @@ import { Router } from "express";
 import AouthMiddleware from "../Middleware/Aoth.js"
 
 
-import { add, deleteById, update, getAllrPoducts, getById } from "../controllers/product.js";
+import { add, deleteById, update, getAllrPoducts, getById } from "../controllers/Product.js";
 
 const productRouter = Router()
 productRouter.get("/",getAllrPoducts)
