@@ -99,7 +99,7 @@ export async function updateUserPassword(req, res) {
     export async function add_signUp(req, res) {
         
         console.log("Received data:", req.body);
-        if(!req.body.userName || !req.body.email || !req.body.password ){
+        if(!req.body.username || !req.body.email || !req.body.password ){
             console.log("❌ חסרים נתונים!");
 
             return res.status(400).json({title:"missing parameters",message:"name email password are required"})}
